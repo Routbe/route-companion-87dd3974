@@ -14,9 +14,9 @@
 ## Rondleiding (/tour)
 - [x] TourDesignStep + TourAccountStep
 - [x] src/pages/Tour.tsx + src/routes/tour.tsx (mobile-first, sticky nav, autosave)
-- [ ] tour.* vertaalsleutels in nl/en/fr/de
-- [ ] CTA "Start de rondleiding" op About + startpagina
-- [ ] Onboarding voorvullen uit concept + concept opruimen
+- [x] tour.* vertaalsleutels in nl/en/fr/de
+- [x] CTA "Start de rondleiding" op About + startpagina
+- [x] Onboarding voorvullen uit concept + concept opruimen
 - [ ] Rondleiding op mobiel testen
 
 ## Open werk (nieuw gemeld)
