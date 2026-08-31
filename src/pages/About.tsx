@@ -489,6 +489,12 @@ export default function About() {
             {t("about.claimCta.button")}
             <ArrowRight className="h-4 w-4" aria-hidden />
           </Link>
+          <p className="mt-4 text-sm opacity-80">
+            {t("tour.cta.title")}{" "}
+            <Link to="/tour" className="underline underline-offset-4">
+              {t("tour.cta.button")}
+            </Link>
+          </p>
         </section>
 
         <section className={`mt-10 text-center ${CARD}`}>
