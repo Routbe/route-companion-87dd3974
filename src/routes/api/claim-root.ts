@@ -125,7 +125,33 @@ export const Route = createFileRoute("/api/claim-root")({
           );
         }
 
-        // 4. Profiel bijwerken.
+        // 4. Naamruimte bewaken: de root-URL is een tweede adres naar hetzelfde
+        // geverifieerde profiel, dus de naam mag niet van een ánder account zijn.
+        const rootOwners = (await sql`
+          select id from public.profiles
+           where (lower(username) = ${cleanHandle}
+                  or lower(coalesce(subdomain_alias, '')) = ${cleanHandle})
+             and id <> ${userId}
+           limit 1
+        `) as Array<Record<string, unknown>>;
+        let aliasOwners: Array<Record<string, unknown>> = [];
+        try {
+          aliasOwners = (await sql`
+            select user_id from public.alias_profiles
+             where lower(handle) = ${cleanHandle} and user_id <> ${userId}
+             limit 1
+          `) as Array<Record<string, unknown>>;
+        } catch {
+          aliasOwners = [];
+        }
+        if (rootOwners.length || aliasOwners.length) {
+          return Response.json(
+            { error: "Deze naam is al in gebruik door een ander account." },
+            { status: 409 },
+          );
+        }
+
+        // 5. Profiel bijwerken.
         await sql`
           update public.profiles
              set subdomain_tier = 'root_lifetime',
