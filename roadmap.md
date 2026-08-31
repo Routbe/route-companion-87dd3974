@@ -23,7 +23,9 @@
 - [ ] Hub-instellingen gratis account: dubbele "Identiteit, URL & badge" naast de profielkeuze bovenaan verwijderen
 - [ ] Splits "Identiteitsverificatie & ROUT Badges"; badges verplaatsen naar "Links & components"
 - [ ] Meer Pagina Bezoek Effects toevoegen
-- [ ] Verified-badge (hand-met-keurmerk) tonen op u/-pagina van verified leden, per lid uitschakelbaar, meertalig (fallback Engels)
+- [x] Verified-badge (hand-met-keurmerk) tonen op u/-pagina van verified leden, per lid uitschakelbaar (schakelaars in de studio)
+- [ ] Mens-badge-tekst volledig meertalig maken (nl/en/fr/de, fallback Engels)
+- [x] Badgeverzameling toont eigen vorm + logo per badge (BadgeMedallion) en werkt publiek
 - [ ] Verified accounts: hun publieke pagina wordt niet echt aangemaakt — onderzoeken en fixen
 - [ ] Routeplanner met kaart
 - [ ] Admin-herbedraden voltooien
@@ -34,3 +36,11 @@
 - [x] /api/claim-root weigert namen van andere accounts
 - [x] Domeinenpaneel: expliciet "extra webadres, geen derde profiel"
 - [ ] Later: e-mailalias (alias_status/alias_sync_*) in admin hernoemen naar "E-mailalias" om verwarring met profielalias te vermijden
+
+## Neon & rootprofiel (nieuw gemeld 31-08)
+- [ ] Naamwijziging/claim van geverifieerde naam wordt niet correct in Neon opgeslagen — fixen
+- [ ] "Bekijk live profiel" linkt naar de oude/foute naam — overal synchroniseren
+- [ ] rout.be/<voornaam.achternaam> bestaat niet na claim: rootprofielpagina echt aanmaken
+- [ ] Root-claim + rootprofielpagina meertalig (nl/en/fr/de)
+- [ ] Bezoekerspaneel volledig uitbouwen: bezoeken, bezoeken in tijd, per taal, bezoekenlijst
+- [ ] Hub: bezoekerslijst van je u/-pagina met bezoektijd en taal
