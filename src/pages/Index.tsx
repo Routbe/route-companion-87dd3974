@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link2 } from "lucide-react";
+import { Link } from "@/lib/router-compat";
 import { TrackingPanel, TrackedQR } from "@/components/TrackingPanel";
 import { prettyCaption } from "@/lib/qr-caption";
 import { AppLayout } from "@/components/layout/AppLayout";
@@ -587,6 +588,16 @@ const Index = () => {
       <TrustBar />
 
       <ProfileShowcase />
+
+      <section className="mx-auto mt-10 max-w-2xl px-4 text-center">
+        <p className="text-sm text-muted-foreground">{t("tour.cta.title")}</p>
+        <Link
+          to="/tour"
+          className="mt-3 inline-flex min-h-11 items-center justify-center rounded-xl bg-foreground px-6 text-sm font-medium text-background transition-opacity hover:opacity-90"
+        >
+          {t("tour.cta.button")}
+        </Link>
+      </section>
 
       <ValuesSection />
     </AppLayout>

@@ -35,6 +35,7 @@ import { Route as SovereigntyRouteImport } from './routes/sovereignty'
 import { Route as StatusRouteImport } from './routes/status'
 import { Route as StudioRouteImport } from './routes/studio'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TourRouteImport } from './routes/tour'
 import { Route as VcardQrRouteImport } from './routes/vcard-qr'
 import { Route as VerifyRouteImport } from './routes/verify'
 import { Route as WifiQrRouteImport } from './routes/wifi-qr'
@@ -222,6 +223,11 @@ const StudioRoute = StudioRouteImport.update({
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TourRoute = TourRouteImport.update({
+  id: '/tour',
+  path: '/tour',
   getParentRoute: () => rootRouteImport,
 } as any)
 const VcardQrRoute = VcardQrRouteImport.update({
@@ -561,6 +567,7 @@ export interface FileRoutesByFullPath {
   '/status': typeof StatusRoute
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
+  '/tour': typeof TourRoute
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
@@ -647,6 +654,7 @@ export interface FileRoutesByTo {
   '/status': typeof StatusRoute
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
+  '/tour': typeof TourRoute
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
@@ -735,6 +743,7 @@ export interface FileRoutesById {
   '/status': typeof StatusRoute
   '/studio': typeof StudioRoute
   '/terms': typeof TermsRoute
+  '/tour': typeof TourRoute
   '/vcard-qr': typeof VcardQrRoute
   '/verify': typeof VerifyRoute
   '/wifi-qr': typeof WifiQrRoute
@@ -823,6 +832,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/studio'
     | '/terms'
+    | '/tour'
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
@@ -909,6 +919,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/studio'
     | '/terms'
+    | '/tour'
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
@@ -996,6 +1007,7 @@ export interface FileRouteTypes {
     | '/status'
     | '/studio'
     | '/terms'
+    | '/tour'
     | '/vcard-qr'
     | '/verify'
     | '/wifi-qr'
@@ -1084,6 +1096,7 @@ export interface RootRouteChildren {
   StatusRoute: typeof StatusRoute
   StudioRoute: typeof StudioRoute
   TermsRoute: typeof TermsRoute
+  TourRoute: typeof TourRoute
   VcardQrRoute: typeof VcardQrRoute
   VerifyRoute: typeof VerifyRoute
   WifiQrRoute: typeof WifiQrRoute
@@ -1302,6 +1315,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tour': {
+      id: '/tour'
+      path: '/tour'
+      fullPath: '/tour'
+      preLoaderRoute: typeof TourRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/vcard-qr': {
@@ -1887,6 +1907,7 @@ const rootRouteChildren: RootRouteChildren = {
   StatusRoute: StatusRoute,
   StudioRoute: StudioRoute,
   TermsRoute: TermsRoute,
+  TourRoute: TourRoute,
   VcardQrRoute: VcardQrRoute,
   VerifyRoute: VerifyRoute,
   WifiQrRoute: WifiQrRoute,

@@ -21,6 +21,8 @@ import { DEFAULT_DISPLAY_PREFS, TYPOGRAPHY_STYLES, type Typography } from "@/lib
 import { handleLengthMessage, normalizeHandleForStorage } from "@/lib/handle-rules";
 import { strictHandleIssue } from "@/lib/handle-validation";
 import { HandleErrorBanner } from "@/components/HandleValidationMessage";
+import { clearLocalTourDraft, readLocalTourDraft } from "@/lib/tour-draft";
+import { discardMyTourDraft, getMyTourDraft } from "@/lib/tour-draft.functions";
 
 /** Wizardstappen — de voortgangsbalk bovenaan volgt exact deze volgorde. */
 const STEPS = [
@@ -94,6 +96,19 @@ export default function Onboarding() {
     }
     if (fullName) setDisplayName(fullName);
     setPrefilled(true);
+
+    // Rondleiding-concept: eerst deze browser, anders het serverconcept.
+    void (async () => {
+      const local = readLocalTourDraft();
+      const draft =
+        local ?? (await getMyTourDraft({}).then((r) => r.draft).catch(() => null));
+      if (!draft) return;
+      if (draft.handle) setHandle((prev) => prev || draft.handle);
+      if (draft.displayName) setDisplayName((prev) => prev || draft.displayName);
+      if (draft.bio) setBio((prev) => prev || draft.bio);
+      if (draft.theme) setTheme(draft.theme);
+      if (draft.typography) setTypography(draft.typography);
+    })();
 
     void (async () => {
       try {
@@ -204,6 +219,10 @@ export default function Onboarding() {
         notifyError(saved.reason ?? "Opslaan mislukte.");
         return;
       }
+      clearLocalTourDraft();
+      void discardMyTourDraft({}).catch(() => {
+        /* opruimen is comfort, nooit blokkerend */
+      });
       notifySuccess("Je ROUT-profiel staat klaar.");
       nav("/studio", { replace: true });
     } catch {

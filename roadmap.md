@@ -10,3 +10,20 @@
 - [ ] Replace `any` in server/API functions with strict types
 - [ ] Verify: 293 tests pass + `tsgo --noEmit` clean
 - [ ] Keep /tmp/observability/build-errors.log clean (typecheck must pass before finishing)
+
+## Rondleiding (/tour)
+- [x] TourDesignStep + TourAccountStep
+- [x] src/pages/Tour.tsx + src/routes/tour.tsx (mobile-first, sticky nav, autosave)
+- [x] tour.* vertaalsleutels in nl/en/fr/de
+- [x] CTA "Start de rondleiding" op About + startpagina
+- [x] Onboarding voorvullen uit concept + concept opruimen
+- [ ] Rondleiding op mobiel testen
+
+## Open werk (nieuw gemeld)
+- [ ] Hub-instellingen gratis account: dubbele "Identiteit, URL & badge" naast de profielkeuze bovenaan verwijderen
+- [ ] Splits "Identiteitsverificatie & ROUT Badges"; badges verplaatsen naar "Links & components"
+- [ ] Meer Pagina Bezoek Effects toevoegen
+- [ ] Verified-badge (hand-met-keurmerk) tonen op u/-pagina van verified leden, per lid uitschakelbaar, meertalig (fallback Engels)
+- [ ] Verified accounts: hun publieke pagina wordt niet echt aangemaakt — onderzoeken en fixen
+- [ ] Routeplanner met kaart
+- [ ] Admin-herbedraden voltooien
