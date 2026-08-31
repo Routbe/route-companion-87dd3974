@@ -187,11 +187,8 @@ export async function isHandleFree(rawHandle: string, userId: string | null) {
   const username = normalizeHandle(rawHandle);
   if (!username) return { ok: false, reason: "invalid" as const };
   if (isReservedHandle(username)) return { ok: false, reason: "reserved" as const };
-  const rows = (await sql`
-    select id from public.profiles where lower(username) = ${username} limit 1
-  `) as Row[];
-  const owner = rows[0]?.["id"] as string | undefined;
-  if (!owner || (userId && owner === userId)) return { ok: true, reason: null };
+  const { isHandleAvailableFor } = await import("./handle-namespace.server");
+  if (await isHandleAvailableFor(username, userId)) return { ok: true, reason: null };
   return { ok: false, reason: "taken" as const };
 }
 
