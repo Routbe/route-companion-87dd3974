@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { Link2 } from "lucide-react";
+import { Link } from "@/lib/router-compat";
 import { TrackingPanel, TrackedQR } from "@/components/TrackingPanel";
 import { prettyCaption } from "@/lib/qr-caption";
 import { AppLayout } from "@/components/layout/AppLayout";
