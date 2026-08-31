@@ -160,7 +160,7 @@ export const Route = createFileRoute("/api/claim-root")({
            where id = ${userId}
         `;
 
-        // 5. Brevo-verzending met gedetailleerde foutrapportage.
+        // 6. Brevo-verzending met gedetailleerde foutrapportage.
         let adminMail: { status: MailStatus; error: string | null } = {
           status: "failed_brevo_key",
           error: "BREVO_API_KEY ontbreekt",
@@ -192,7 +192,7 @@ export const Route = createFileRoute("/api/claim-root")({
           ]);
         }
 
-        // 6. Audit log.
+        // 7. Audit log.
         const errorPayload =
           adminMail.error || userMail.error
             ? JSON.stringify({ admin: adminMail.error, user: userMail.error })
