@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
-import { Award, Lock } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { db } from "@/lib/db/client";
 import { getMyAccount } from "@/lib/account.functions";
 import { BadgeDetailDialog, type BadgeDialogEntry } from "@/components/badges/BadgeDetailDialog";
+import { BadgeMedallion } from "@/components/badges/BadgeMedallion";
 import { fetchBadgeCatalogue, fetchUserBadges, formatSerial, type BadgeDef } from "@/lib/badges";
 import { useI18n } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
@@ -115,14 +115,14 @@ export function BadgesPanel() {
                   has ? "border-foreground/30 bg-background" : "border-border opacity-60",
                 )}
               >
-                {has ? (
-                  <Award className="mt-0.5 h-4 w-4 shrink-0" aria-hidden />
-                ) : (
-                  <Lock
-                    className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground"
-                    aria-label={t("badges.locked")}
-                  />
-                )}
+                <BadgeMedallion
+                  icon={b.icon}
+                  slug={b.slug}
+                  color={b.color}
+                  rarity={b.rarity ?? "common"}
+                  locked={!has}
+                  className="mt-0.5"
+                />
                 <span className="min-w-0">
                   <span className="block text-sm font-medium">{label(b.slug, "name", b.name)}</span>
                   <span className="block text-[11px] text-muted-foreground">

@@ -1,4 +1,4 @@
-import { Award, Lock } from "lucide-react";
+import { BadgeMedallion } from "@/components/badges/BadgeMedallion";
 import {
   Dialog,
   DialogContent,
@@ -48,11 +48,13 @@ export function BadgeDetailDialog({
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            {unlocked ? (
-              <Award className="h-5 w-5" aria-hidden />
-            ) : (
-              <Lock className="h-5 w-5 text-muted-foreground" aria-hidden />
-            )}
+            <BadgeMedallion
+              icon={badge.icon}
+              slug={badge.slug}
+              color={badge.color}
+              rarity={rarity}
+              locked={!unlocked}
+            />
             {translated("name", badge.name)}
           </DialogTitle>
           <DialogDescription>{translated("description", badge.description)}</DialogDescription>

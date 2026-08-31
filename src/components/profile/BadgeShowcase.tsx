@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { Award } from "lucide-react";
 import { BadgeDetailDialog } from "@/components/badges/BadgeDetailDialog";
-import { fetchUserBadges, formatSerial, type UnlockedBadge } from "@/lib/badges";
+import { BadgeMedallion } from "@/components/badges/BadgeMedallion";
+import { fetchPublicUserBadges, formatSerial, type UnlockedBadge } from "@/lib/badges";
 import { useI18n } from "@/lib/i18n";
 
 /** Public "Badges" strip under the profile header. Renders nothing when empty. */
@@ -18,7 +18,7 @@ export function BadgeShowcase({
 
   useEffect(() => {
     let cancelled = false;
-    void fetchUserBadges(userId).then((b) => !cancelled && setBadges(b));
+    void fetchPublicUserBadges(userId).then((b) => !cancelled && setBadges(b));
     return () => {
       cancelled = true;
     };
@@ -51,7 +51,13 @@ export function BadgeShowcase({
                   color: theme.text,
                 }}
               >
-                <Award className="h-3 w-3" aria-hidden />
+                <BadgeMedallion
+                  icon={b.icon}
+                  slug={b.slug}
+                  color={b.color}
+                  rarity={b.rarity ?? "common"}
+                  size="sm"
+                />
                 {b.name}
                 {serial ? (
                   <span className="tabular-nums" style={{ color: theme.muted }}>
