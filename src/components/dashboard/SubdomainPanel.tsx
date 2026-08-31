@@ -215,6 +215,11 @@ export function SubdomainPanel() {
       <h2 className="flex items-center gap-2 text-lg font-medium">
         <Globe className="h-4 w-4" aria-hidden /> Domeinen
       </h2>
+      <p className="-mt-1 text-xs text-muted-foreground">
+        Dit zijn extra webadressen naar je bestaande profielen — geen apart profiel. Je hebt er
+        altijd maximaal twee: je gratis alias op <span className="font-mono">rout.be/u/…</span> en,
+        na verificatie, je geverifieerde profiel op <span className="font-mono">rout.be/…</span>.
+      </p>
 
       {/* Primair actief subdomein */}
       <div className="rounded-xl border border-border p-3">
