@@ -177,9 +177,15 @@ export function SubdomainPanel() {
         return;
       }
       if (res.status === 409) {
+        // Zonder status is het geen lopende eigen aanvraag maar een naam die
+        // al bij een ander account hoort.
+        if (!data.status) {
+          toast.error(data.error ?? "Deze naam is al in gebruik door een ander account.");
+          return;
+        }
         setConflict(true);
         setTier("root_lifetime");
-        setRootStatus(data.status ?? "pending_dns");
+        setRootStatus(data.status);
         void refreshClaims();
         return;
       }
