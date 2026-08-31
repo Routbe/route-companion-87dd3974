@@ -123,25 +123,18 @@ function normalizeBlockHandles(blocks: unknown[]): unknown[] {
   });
 }
 
-/** Is deze aliashandle vrij? Botst niet met rootprofielen én niet met andere aliassen. */
+/**
+ * Is deze aliashandle vrij? Eén gedeelde naamruimte: botst niet met
+ * rootprofielen, root-domeinnamen of andere aliassen.
+ */
 export async function isAliasHandleFree(rawHandle: string, userId: string | null) {
   const handle = normalizeHandle(rawHandle);
   if (!handle) return { ok: false, reason: "invalid" as const };
   if (isReservedHandle(handle)) return { ok: false, reason: "reserved" as const };
   await ensureAliasTable();
 
-  const rootRows = (await sql`
-    select id from public.profiles where lower(username) = ${handle} limit 1
-  `) as Row[];
-  const rootOwner = rootRows[0]?.["id"] as string | undefined;
-  if (rootOwner && (!userId || rootOwner !== userId))
-    return { ok: false, reason: "taken" as const };
-
-  const aliasRows = (await sql`
-    select user_id from public.alias_profiles where lower(handle) = ${handle} limit 1
-  `) as Row[];
-  const aliasOwner = aliasRows[0]?.["user_id"] as string | undefined;
-  if (aliasOwner && (!userId || aliasOwner !== userId))
+  const { isHandleAvailableFor } = await import("./handle-namespace.server");
+  if (!(await isHandleAvailableFor(handle, userId)))
     return { ok: false, reason: "taken" as const };
 
   return { ok: true, reason: null };
