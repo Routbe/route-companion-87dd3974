@@ -58,9 +58,10 @@ export function useProfileRecord(username: string, options?: { free?: boolean })
 
       let row: Row | null = null;
       try {
-        // /u/<handle> leest het aparte aliasprofiel; de rootnamespace leest het
-        // geverifieerde profiel. Alias valt terug op het rootprofiel voor
-        // accounts die nog geen apart aliasprofiel hebben aangemaakt.
+        // Strikt gescheiden naamruimtes: /u/<handle> leest uitsluitend het
+        // aliasprofiel, de rootnamespace uitsluitend het geverifieerde profiel.
+        // Geen fallback — anders zou /u/<naam> het profiel van een ánder
+        // account kunnen tonen.
         row = (await withTimeout(
           free
             ? getPublicAliasProfileByHandle({ data: { handle } })
@@ -68,13 +69,6 @@ export function useProfileRecord(username: string, options?: { free?: boolean })
           8000,
           `neon_public_profile:${handle}`,
         )) as Row | null;
-        if (!row && free) {
-          row = (await withTimeout(
-            getPublicProfileByHandle({ data: { handle } }),
-            8000,
-            `neon_public_profile_root:${handle}`,
-          )) as Row | null;
-        }
       } catch (err) {
         if (cancelled) return;
         console.error("[profile:lookup]", handle, err);
