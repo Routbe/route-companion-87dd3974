@@ -109,7 +109,7 @@ export function BadgeMedallion({
   const Icon = locked ? Lock : badgeIconFor(icon, slug);
   const tint = (color && /^#|^rgb|^hsl|^oklch/.test(color) ? color : null) ?? RARITY_TINT[r];
   const box = size === "lg" ? "h-14 w-14" : size === "sm" ? "h-7 w-7" : "h-10 w-10";
-  const glyph = size === "lg" ? "h-6 w-6" : size === "sm" ? "h-3.5 w-3.5" : "h-4.5 w-4.5";
+  const glyph = size === "lg" ? "h-6 w-6" : size === "sm" ? "h-3.5 w-3.5" : "h-[18px] w-[18px]";
 
   return (
     <span
