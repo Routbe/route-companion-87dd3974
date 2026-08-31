@@ -117,10 +117,9 @@ export async function writeStudioProfile(userId: string, input: StudioProfileInp
     }
   }
 
-  const taken = (await sql`
-    select id from public.profiles where username = ${username} and id <> ${userId} limit 1
-  `) as Row[];
-  if (taken.length) throw new Error("handle_taken");
+  // Eén gedeelde naamruimte: root-handles, root-domeinnamen én aliashandles.
+  const { isHandleAvailableFor } = await import("./handle-namespace.server");
+  if (!(await isHandleAvailableFor(username, userId))) throw new Error("handle_taken");
 
   // Geverifieerde accounts blijven aan hun wettelijke naam gekoppeld: de handle
   // moet de voornaam/achternaam-structuur volgen (server is de echte poortwachter).
