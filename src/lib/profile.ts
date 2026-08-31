@@ -50,6 +50,8 @@ export interface ProfileRecord {
   blocks: ProfileBlock[];
   tier?: string;
   verified?: boolean;
+  /** Aliasprofiel (`/u/…`) van een lid met een geverifieerd rootprofiel. */
+  human_linked?: boolean;
   status?: string;
   bio?: string | null;
   is_early_believer?: boolean;
