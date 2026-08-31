@@ -195,7 +195,9 @@ export async function readPublicAliasProfile(rawHandle: string) {
            a.avatar_url, a.favicon_url, a.theme, a.card_style, a.blocks,
            a.display_prefs, a.created_at,
            coalesce(p.is_banned, false) as is_banned,
-           coalesce(p.is_suspended, false) as is_suspended
+           coalesce(p.is_suspended, false) as is_suspended,
+           coalesce(p.verified, false) as owner_verified,
+           p.verified_at as owner_verified_at
       from public.alias_profiles a
       join public.profiles p on p.id = a.user_id
      where lower(a.handle) = ${handle}
@@ -208,7 +210,10 @@ export async function readPublicAliasProfile(rawHandle: string) {
   return {
     ...row,
     verified: false,
-    verified_at: null,
+    // Het blauwe vinkje blijft bij het rootprofiel; het aliasprofiel toont het
+    // mens-symbool wanneer het gekoppelde account geverifieerd is.
+    human_linked: Boolean(row["owner_verified"]),
+    verified_at: (row["owner_verified_at"] as string | null) ?? null,
     verified_legal_name: null,
     is_early_believer: false,
     status: "active",

@@ -60,6 +60,10 @@ export interface ProfileDisplayPrefs {
   /** "legal" = handle blijft herleidbaar naar de wettelijke naam. */
   identityMode: IdentityMode;
   badgeVisible: boolean;
+  /** Mens-badge op het alias-profiel (`/u/…`) van een geverifieerd lid. */
+  humanBadgeVisible: boolean;
+  /** Badgeverzameling onder de profielkop tonen. */
+  badgeShowcaseVisible: boolean;
   badgeType: BadgeType;
   badgeNameFormat: BadgeNameFormat;
   /** `null` = volg de standaard (gratis toont watermerk, betalend niet). */
@@ -107,6 +111,8 @@ export interface ProfileDisplayPrefs extends ProfileDesignPrefs {}
 export const DEFAULT_DISPLAY_PREFS: ProfileDisplayPrefs = {
   identityMode: "legal",
   badgeVisible: true,
+  humanBadgeVisible: true,
+  badgeShowcaseVisible: true,
   badgeType: "verified",
   badgeNameFormat: "full",
   showWatermark: null,
@@ -221,6 +227,9 @@ export function parseDisplayPrefs(raw: unknown): ProfileDisplayPrefs {
   return {
     identityMode: oneOf(r["identityMode"], ["legal", "private"] as const, "legal"),
     badgeVisible: r["badgeVisible"] === undefined ? true : Boolean(r["badgeVisible"]),
+    humanBadgeVisible: r["humanBadgeVisible"] === undefined ? true : Boolean(r["humanBadgeVisible"]),
+    badgeShowcaseVisible:
+      r["badgeShowcaseVisible"] === undefined ? true : Boolean(r["badgeShowcaseVisible"]),
     badgeType: oneOf(r["badgeType"], ["verified", "human"] as const, "verified"),
     badgeNameFormat: oneOf(r["badgeNameFormat"], ["full", "initials", "lower"] as const, "full"),
     showWatermark:

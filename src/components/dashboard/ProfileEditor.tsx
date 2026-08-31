@@ -338,6 +338,7 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
       card_style: cardStyle,
       blocks,
       verified,
+      human_linked: verified,
       status: verified ? "active" : "pending",
       verified_legal_name: legalName,
       display_prefs: prefs,
@@ -1187,7 +1188,7 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                       </p>
                     </div>
 
-                    <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start justify-between gap-4 rounded-xl border border-border bg-background/60 p-3">
                       <div className="min-w-0">
                         <p className="text-sm font-medium">Badge tonen</p>
                         <p className="mt-1 text-xs text-muted-foreground">
@@ -1199,6 +1200,38 @@ export function ProfileEditor({ variant = "verified" }: { variant?: ProfileVaria
                         disabled={!verified}
                         checked={prefs.badgeVisible}
                         onCheckedChange={(v) => setPref("badgeVisible", v)}
+                      />
+                    </div>
+
+                    {/* Mens-badge: staat op je alias-pagina (rout.be/u/…) zodra je
+                        hoofdaccount geverifieerd is. Altijd uitschakelbaar. */}
+                    <div className="flex items-start justify-between gap-4 rounded-xl border border-border bg-background/60 p-3">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium">Mens-badge op je alias-pagina</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Toont op rout.be/u/… dat dit account aan een geverifieerd, menselijk
+                          account gekoppeld is — zonder je wettelijke naam te tonen.
+                        </p>
+                      </div>
+                      <Switch
+                        aria-label="Mens-badge op je alias-pagina"
+                        disabled={!verified}
+                        checked={prefs.humanBadgeVisible}
+                        onCheckedChange={(v) => setPref("humanBadgeVisible", v)}
+                      />
+                    </div>
+
+                    <div className="flex items-start justify-between gap-4 rounded-xl border border-border bg-background/60 p-3">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium">Badgeverzameling tonen</p>
+                        <p className="mt-1 text-xs text-muted-foreground">
+                          Toont je ontgrendelde badges met hun vorm en logo onder je profielkop.
+                        </p>
+                      </div>
+                      <Switch
+                        aria-label="Badgeverzameling tonen"
+                        checked={prefs.badgeShowcaseVisible}
+                        onCheckedChange={(v) => setPref("badgeShowcaseVisible", v)}
                       />
                     </div>
 

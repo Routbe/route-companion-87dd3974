@@ -106,7 +106,11 @@ export function ProfileView({
   // schone namespace (`rout.be/<handle>`). De aliasruimte (`rout.be/u/…`) van
   // datzelfde geverifieerde lid toont het mens-symbool: bewijs dat dit account
   // aan een geverifieerd, menselijk account gekoppeld is — zonder echte naam.
-  const showBadge = Boolean(profile.verified) && prefs.badgeVisible;
+  // Aliasprofiel: het mens-symbool verschijnt wanneer het gekoppelde account
+  // geverifieerd is (`human_linked`) en de eigenaar de badge niet uitzette.
+  const showBadge = free
+    ? Boolean(profile.human_linked) && prefs.humanBadgeVisible
+    : Boolean(profile.verified) && prefs.badgeVisible;
   const badgeType = free ? "human" : "verified";
   const showWatermark =
     shouldShowWatermark(Boolean(profile.verified), prefs) &&
@@ -364,7 +368,7 @@ export function ProfileView({
           </button>
         )}
 
-        <BadgeShowcase userId={profile.id} theme={t} />
+        {prefs.badgeShowcaseVisible && <BadgeShowcase userId={profile.id} theme={t} />}
 
         <FavoritesShowcase favorites={prefs.favorites} theme={t} />
 

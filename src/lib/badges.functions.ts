@@ -8,6 +8,14 @@ export const getBadgeCatalogue = createServerFn({ method: "GET" }).handler(async
   return fetchBadgeCatalogueDb();
 });
 
+/** Public badge wall of any member — no PII, only catalogue rows + serials. */
+export const getPublicUserBadges = createServerFn({ method: "GET" })
+  .inputValidator((data: unknown) => z.object({ userId: z.string().min(1) }).parse(data))
+  .handler(async ({ data }) => {
+    const { fetchUserBadgesDb } = await import("./badges.server");
+    return fetchUserBadgesDb(data.userId);
+  });
+
 /** Badges the signed-in member has unlocked. */
 export const getMyBadges = createServerFn({ method: "GET" })
   .middleware([requireAuth])

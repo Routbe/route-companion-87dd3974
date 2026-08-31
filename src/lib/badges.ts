@@ -45,6 +45,18 @@ export async function fetchUserBadges(_userId: string): Promise<UnlockedBadge[]>
   }
 }
 
+/** Publieke badgemuur van een profiel (werkt ook voor uitgelogde bezoekers). */
+export async function fetchPublicUserBadges(userId: string): Promise<UnlockedBadge[]> {
+  if (!userId || userId === "draft") return [];
+  try {
+    const { getPublicUserBadges } = await import("./badges.functions");
+    const rows = await getPublicUserBadges({ data: { userId } });
+    return (rows ?? []) as UnlockedBadge[];
+  } catch {
+    return [];
+  }
+}
+
 /** "#00012" reads like a certificate; plain numbers read like a database id. */
 export function formatSerial(serial?: number | null): string | null {
   if (!serial || serial < 1) return null;
