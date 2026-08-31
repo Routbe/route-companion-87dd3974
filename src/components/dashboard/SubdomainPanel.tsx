@@ -177,9 +177,15 @@ export function SubdomainPanel() {
         return;
       }
       if (res.status === 409) {
+        // Zonder status is het geen lopende eigen aanvraag maar een naam die
+        // al bij een ander account hoort.
+        if (!data.status) {
+          toast.error(data.error ?? "Deze naam is al in gebruik door een ander account.");
+          return;
+        }
         setConflict(true);
         setTier("root_lifetime");
-        setRootStatus(data.status ?? "pending_dns");
+        setRootStatus(data.status);
         void refreshClaims();
         return;
       }
@@ -209,6 +215,11 @@ export function SubdomainPanel() {
       <h2 className="flex items-center gap-2 text-lg font-medium">
         <Globe className="h-4 w-4" aria-hidden /> Domeinen
       </h2>
+      <p className="-mt-1 text-xs text-muted-foreground">
+        Dit zijn extra webadressen naar je bestaande profielen — geen apart profiel. Je hebt er
+        altijd maximaal twee: je gratis alias op <span className="font-mono">rout.be/u/…</span> en,
+        na verificatie, je geverifieerde profiel op <span className="font-mono">rout.be/…</span>.
+      </p>
 
       {/* Primair actief subdomein */}
       <div className="rounded-xl border border-border p-3">
