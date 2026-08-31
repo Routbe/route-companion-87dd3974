@@ -27,3 +27,10 @@
 - [ ] Verified accounts: hun publieke pagina wordt niet echt aangemaakt — onderzoeken en fixen
 - [ ] Routeplanner met kaart
 - [ ] Admin-herbedraden voltooien
+
+## Profielhub-naamruimte (gedaan)
+- [x] Eén gedeelde handle-naamruimte (root, alias, root-domein) — src/lib/handle-namespace.server.ts + db/39
+- [x] /u/<handle> valt niet meer terug op andermans rootprofiel
+- [x] /api/claim-root weigert namen van andere accounts
+- [x] Domeinenpaneel: expliciet "extra webadres, geen derde profiel"
+- [ ] Later: e-mailalias (alias_status/alias_sync_*) in admin hernoemen naar "E-mailalias" om verwarring met profielalias te vermijden
